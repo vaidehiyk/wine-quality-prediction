@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from src.pipeline.predict_pipeline import PredictPipeline
+import os
 
 app = Flask(__name__)
 
@@ -14,5 +15,7 @@ def predict():
     result = pipeline.predict(data)
     return jsonify({'prediction': float(result)})
 
+    
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
